@@ -70,7 +70,7 @@ class PipelinesClient(ApiContainer):
     def create_from_dict(self, params: dict):
         return self.client.api("POST", f"{self.base_uri}", params)
 
-    def create_or_update(self, name: str, storage: str, catalog: str, target: str, continuous: bool = False, development: bool = True, configuration: dict = None, notebooks: list = None, libraries: list = None, clusters: list = None, min_workers: int = 0, max_workers: int = 0, photon: bool = True, pipeline_id: Union[str, None] = None):
+    def create_or_update(self, name: str, target: str, continuous: bool = False, development: bool = True, configuration: dict = None, notebooks: list = None, libraries: list = None, clusters: list = None, min_workers: int = 0, max_workers: int = 0, photon: bool = True, pipeline_id: Union[str, None] = None,  storage: str = None, catalog: str = None,):
 
         params = self.to_dict(name=name,
                               storage=storage,
@@ -174,8 +174,10 @@ class PipelinesClient(ApiContainer):
         
         params = dict()
         params["name"] = name
-        params["storage"] = storage
-        params["catalog"] = catalog
+        if storage is not None:
+            params["storage"] = storage
+        if catalog is not None:
+            params["catalog"] = catalog
         params["configuration"] = configuration
         params["clusters"] = clusters
         params["libraries"] = libraries
