@@ -109,7 +109,7 @@ class PipelinesClient(ApiContainer):
                               photon=photon)
         return self.update_from_dict(pipeline_id, params)
 
-    def create(self, name: str, storage: str, catalog: str, target: str, continuous: bool = False, development: bool = True, configuration: dict = None, notebooks: list = None, libraries: list = None, clusters: list = None, min_workers: int = 0, max_workers: int = 0, photon: bool = True):
+    def create(self, name: str, target: str, continuous: bool = False, development: bool = True, configuration: dict = None, notebooks: list = None, libraries: list = None, clusters: list = None, min_workers: int = 0, max_workers: int = 0, photon: bool = True, storage: str = None, catalog: str = None):
         params = self.to_dict(name=name,
                               storage=storage,
                               catalog=catalog,
