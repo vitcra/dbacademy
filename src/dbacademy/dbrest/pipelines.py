@@ -74,6 +74,7 @@ class PipelinesClient(ApiContainer):
 
         params = self.to_dict(name=name,
                               storage=storage,
+                              catalog=catalog,
                               target=target,
                               continuous=continuous,
                               development=development,
