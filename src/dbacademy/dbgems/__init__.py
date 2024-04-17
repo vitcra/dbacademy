@@ -117,8 +117,9 @@ def get_cloud() -> str:
 def get_tags():
     tags = dbutils.entry_point.getDbutils().notebook().getContext().tags()
     # noinspection PyProtectedMember,PyUnresolvedReferences
-    java_map = sc._jvm.scala.collection.JavaConversions.mapAsJavaMap(tags)
-    return java_map
+    # java_map = sc._jvm.scala.collection.JavaConversions.mapAsJavaMap(tags)
+    print(tags)
+    return tags #java_map
 
 
 def get_tag(tag_name: str, default: str = None) -> str:
