@@ -261,7 +261,7 @@ class ClustersHelper:
 
         ClustersHelper.add_custom_tag(definition, WorkspaceHelper.PARAM_WORKSPACE_NAME, workspace_name)
 
-        ClustersHelper.__create_cluster_policy(client=client, instance_pool_id=None, name=ClustersHelper.POLICY_DLT_ONLY, definition=definition)
+        ClustersHelper.__create_cluster_policy(client=client, instance_pool_id=None, name=ClustersHelper.POLICY_DLT_UC, definition=definition)
 
     @staticmethod
     def add_default_policy(definition: Dict[str, Any], name: str, value: str):
