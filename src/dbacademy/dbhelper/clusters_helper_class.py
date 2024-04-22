@@ -230,6 +230,40 @@ class ClustersHelper:
         ClustersHelper.__create_cluster_policy(client=client, instance_pool_id=None, name=ClustersHelper.POLICY_DLT_ONLY, definition=definition)
 
     @staticmethod
+    def create_dlt_uc_policy(*, client: DBAcademyRestClient, lab_id: str, workspace_description: str, workspace_name: str, org_id: str) -> None:
+        from dbacademy import common, dbgems
+        from dbacademy.dbhelper.workspace_helper_class import WorkspaceHelper
+        from dbacademy.dbhelper.dbacademy_helper_class import DBAcademyHelper
+
+        org_id = org_id or dbgems.get_org_id()
+        lab_id = lab_id or WorkspaceHelper.get_lab_id()
+        workspace_name = workspace_name or WorkspaceHelper.get_workspace_name()
+        workspace_description = workspace_description or WorkspaceHelper.get_workspace_description()
+
+        definition = {
+            "cluster_type": {
+                "type": "fixed",
+                "value": "dlt"
+            },
+            "num_workers": {
+                "type": "range",
+                "maxValue": 1
+            }
+        }
+
+        ClustersHelper.add_custom_tag(definition, WorkspaceHelper.PARAM_LAB_ID, lab_id)
+
+        ClustersHelper.add_custom_tag(definition, WorkspaceHelper.PARAM_DESCRIPTION, workspace_description)
+
+        ClustersHelper.add_custom_tag(definition, WorkspaceHelper.PARAM_SOURCE, "Smoke-Test" if DBAcademyHelper.is_smoke_test() else common.clean_string(lab_id))
+
+        ClustersHelper.add_custom_tag(definition, WorkspaceHelper.PARAM_ORG_ID, org_id)
+
+        ClustersHelper.add_custom_tag(definition, WorkspaceHelper.PARAM_WORKSPACE_NAME, workspace_name)
+
+        ClustersHelper.__create_cluster_policy(client=client, instance_pool_id=None, name=ClustersHelper.POLICY_DLT_ONLY, definition=definition)
+
+    @staticmethod
     def add_default_policy(definition: Dict[str, Any], name: str, value: str):
 
         if value is None or value.strip() == "":
