@@ -12,7 +12,7 @@ class FeatureStoreClient(ApiContainer):
         import sys
         results = []
 
-        response = self.client.api("GET", f"{self.base_uri}/feature-tables/search?max_results={int(1e9)}")
+        response = self.client.api("GET", f"{self.base_uri}/feature-tables/search?max_results=200")
         results.extend(response.get("feature_tables", []))
 
         while "next_page_token" in response:
